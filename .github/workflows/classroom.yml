@@ -1,0 +1,46 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Compile myMax
+      id: compile-mymax
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Compile myMax
+        setup-command: ''
+        command: g++ --std=c++17 myMax.cpp -o myMax
+        timeout: 10
+        max-score: 5
+    - name: Run myMax
+      id: run-mymax
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Run myMax
+        setup-command: ''
+        command: "./myMax"
+        input: ''
+        expected-output: |-
+          7
+          3.5
+          banana
+        comparison-method: contains
+        timeout: 10
+        max-score: 5
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        COMPILE-MYMAX_RESULTS: "${{steps.compile-mymax.outputs.result}}"
+        RUN-MYMAX_RESULTS: "${{steps.run-mymax.outputs.result}}"
+      with:
+        runners: compile-mymax,run-mymax

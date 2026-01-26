@@ -37,10 +37,36 @@ jobs:
         comparison-method: contains
         timeout: 10
         max-score: 5
+    - name: Compile Box
+      id: compile-box
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Compile Box
+        setup-command: ''
+        command: g++ --std=c++17 Box.cpp -o Box
+        timeout: 10
+        max-score: 5
+    - name: Run Box
+      id: run-box
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Run Box
+        setup-command: ''
+        command: "./Box"
+        input: ''
+        expected-output: |-
+          10
+          3.14
+          CS20
+        comparison-method: contains
+        timeout: 10
+        max-score: 5
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
       env:
         COMPILE-MYMAX_RESULTS: "${{steps.compile-mymax.outputs.result}}"
         RUN-MYMAX_RESULTS: "${{steps.run-mymax.outputs.result}}"
+        COMPILE-BOX_RESULTS: "${{steps.compile-box.outputs.result}}"
+        RUN-BOX_RESULTS: "${{steps.run-box.outputs.result}}"
       with:
-        runners: compile-mymax,run-mymax
+        runners: compile-mymax,run-mymax,compile-box,run-box

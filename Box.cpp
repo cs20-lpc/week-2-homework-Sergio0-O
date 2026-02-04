@@ -1,3 +1,7 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
 template <typename T>
 class Box {
 private:
@@ -5,12 +9,16 @@ private:
 
 public:
     // TODO: Constructor
+    Box(T val){value = val; }
 
     // TODO: setValue
+    void setValue(T x){value = x;}
 
     // TODO: getValue
+    T getValue() const{return value;}
 
     // TODO: print
+    void print() const {cout << value << endl;}
 };
 
 int main()

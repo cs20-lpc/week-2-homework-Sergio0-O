@@ -2,6 +2,12 @@
 using namespace std;
 
 // TODO: Write a function template myMax
+template <typename T>
+T myMax(T x, T y){
+	return (x > y) ? x : y;
+
+
+}
 
 int main() {
     cout << myMax(3, 7) << endl;

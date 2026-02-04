@@ -1,4 +1,9 @@
 #include <iostream>
+#include <string>
+using namespace std;
+
+#ifndef CLASSPAIRTEMPLATE_HPP_
+#define CLASSPAIRTEMPLATE_HPP_
 
 // TODO: Create a class template named Pair
 // It should accept TWO different data types
@@ -11,10 +16,14 @@ private:
 
 public:
     // TODO: Write PROTOTYPE for  constructor that initializes both values
-
+    Pair(T1 one, T2 two);
     // TODO: Write PROTOTYPE for  function named print()
     // It should display both values in the format:
     // (value1, value2)
+    void print() const;
 };
-
 // TO DO: Include implementation file here
+#include "ClassPairTemplate.h"   
+
+#endif
+

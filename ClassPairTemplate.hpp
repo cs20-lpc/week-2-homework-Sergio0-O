@@ -23,7 +23,7 @@ public:
     void print() const;
 };
 // TO DO: Include implementation file here
-#include "ClassPairTemplate.h"   
+#include "ClassPairTemplate.tpp"   
 
 #endif
 
